@@ -57,7 +57,7 @@ typedef struct {
 
 /*
  * GPIO pin possible modes
- * @GPIO_PIN_MODE_IN
+ * @GPIO_PIN_MODE
  */
 #define GPIO_MODE_INPUT			0
 #define GPIO_MODE_OUTPUT_10		1
@@ -66,7 +66,7 @@ typedef struct {
 
 /*
  * GPIO pin possible configuration in input mode
- * @GPIO_PIN_CNF
+ * @GPIO_PIN_CNF_IN
  */
 #define GPIO_CNF_ANALOG_IN			0
 #define GPIO_CNF_FLOATING_IN		1

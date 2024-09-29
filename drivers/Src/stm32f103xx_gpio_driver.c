@@ -62,20 +62,31 @@ void GPIO_PeriClockControl(GPIO_RegDef_t* pGPIOx, uint8_t enOrDis) {
  * @note		- none
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
-	// 1. configure the mode of GPIO pin
+	// configure the mode and type of GPIO pin
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_OUTPUT_50) {
 		
-	}
+		uint32_t temp;
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode; 
+
+		if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_INPUT) {
+			temp |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinInputType << 2);
+		}
+		else {
+			temp |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinOutputType << 2);
+		}
+
+		if (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber <= GPIO_PIN_7) {
+			pGPIOHandle->pGPIOx->CRL &= ~(0xF << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*4);
+			pGPIOHandle->pGPIOx->CRL |= (temp << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*4);
+		}
+		else {
+			pGPIOHandle->pGPIOx->CRH &= ~(0xF << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*4);
+			pGPIOHandle->pGPIOx->CRH |= (temp << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber*4);
+		}
+	} 
 	else {
 		// this part will do later.
 	}
-	// 2. configure the speed
-
-	//3. configure the pull up/down
-
-	//4. configure the output type
-
-	//5. configure the alt functionality
 }
 
 void GPIO_DeInit(GPIO_RegDef_t* pGPIOx) {
