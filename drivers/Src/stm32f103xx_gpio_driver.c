@@ -63,7 +63,12 @@ void GPIO_PeriClockControl(GPIO_RegDef_t* pGPIOx, uint8_t enOrDis) {
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 	// 1. configure the mode of GPIO pin
-
+	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_OUTPUT_50) {
+		
+	}
+	else {
+		// this part will do later.
+	}
 	// 2. configure the speed
 
 	//3. configure the pull up/down
